@@ -83,6 +83,40 @@
 			for(circle in circles)
 			{
 				circles[circle].update(1);
+				// console.log(circles[circle].info.cx);
+			}
+
+			for(circle in circles)
+			{
+				x1 = circles[circle].info.cx;
+				y1 = circles[circle].info.cy;
+				// console.log(circle);
+
+				for (var i = circle * 1 + 1; i < circles.length; i++) {
+
+					x2 = circles[i].info.cx;
+					y2 = circles[i].info.cy;
+
+					if ( (circles[circle].info.r + circles[i].info.r) > Math.sqrt(Math.pow((x1 - x2),2)+Math.pow((y1 - y2),2)) ) {
+
+						vx1 = circles[circle].info.velocity.x;
+						vy1 = circles[circle].info.velocity.y;
+						vx2 = circles[i].info.velocity.x;
+						vy2 = circles[i].info.velocity.y;
+						m1 = circles[circle].info.r*1;
+						m2 = circles[i].info.r*1;
+
+						newVelX1 = (vx1 * (m1 - m2) + (2 * m2 * vx2)) / (m1 + m2);
+						newVelY1 = (vy1 * (m1 - m2) + (2 * m2 * vy2)) / (m1 + m2);
+						newVelX2 = (vx2 * (m2 - m1) + (2 * m1 * vx1)) / (m1 + m2);
+						newVelY2 = (vy2 * (m2 - m1) + (2 * m1 * vy1)) / (m1 + m2);
+
+						circles[circle].info.velocity.x = newVelX1;
+						circles[circle].info.velocity.y = newVelY1;
+						circles[i].info.velocity.x = newVelX2;
+						circles[i].info.velocity.y = newVelY2;
+					}
+				}
 			}
 		}
 
