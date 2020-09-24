@@ -1,0 +1,5 @@
+/* Removed margin from body in order to fit the window size exactly */
+
+body {
+    margin: 0;
+}
